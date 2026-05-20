@@ -42,7 +42,7 @@ const ProductForm = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('${API_BASE}/api/products', payload, {
+        await axios.post(`${API_BASE}/api/products`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }
