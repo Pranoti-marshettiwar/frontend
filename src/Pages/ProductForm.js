@@ -3,6 +3,8 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
 
+  const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const ProductForm = () => {
   const { token } = useContext(AuthContext);
   const { id } = useParams(); // Presents if editing
@@ -36,11 +38,11 @@ const ProductForm = () => {
 
     try {
       if (isEditMode) {
-        await axios.put(`http://localhost:5000/api/products/${id}`, payload, {
+        await axios.put(`${API_BASE}/api/products/${id}`, payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('http://localhost:5000/api/products', payload, {
+        await axios.post('${API_BASE}/api/products', payload, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }

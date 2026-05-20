@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 import axios from 'axios';
-
+ const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 const ProductList = () => {
   const { token, user, logout } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
@@ -14,7 +14,7 @@ const ProductList = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5000/api/products?search=${search}`, {
+      const response = await axios.get(`${API_BASE}/api/products?search=${search}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProducts(response.data);
@@ -33,7 +33,7 @@ const ProductList = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(`${API_BASE}/api/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchProducts(); // Refresh list
